@@ -1,11 +1,13 @@
-# Rack Form Cache
+# Rack Cache
 
-A HTTP server application that contains two endpoints, one providing a form and another which processes that form's submission.
+A demo/spike HTTP server application that contains two endpoints, one providing a form and another which processes that form's submission.
 
 ## Technical Overview
 
 - HTTP server built using the `rack` gem.
 - HTTP caching provided by the `rack-cache` gem.
+
+I tried finding a *form builder* but the results were either Rails specific or just poor; so instead I use `HEREDOCS` to template the HTML. It works (on a small project) but isn't ideal.
 
 ## Usage
 
@@ -26,12 +28,7 @@ To test the auth processing, use the following login details to sucessfully logi
 
 Anything else will result in a failed login attempt.
 
-## Tests
+## TODO
 
-Run the tests with:
-
-<<<<<<< HEAD
-    $ bundle exec rake test
-=======
-    $ bundle exec ruby test.rb
->>>>>>> 59ae1f9... Initial commit
+- `base64` encode/decode the form data.
+- Make use of `Rack::Cache`.
