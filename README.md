@@ -31,4 +31,8 @@ Anything else will result in a failed login attempt.
 
 Run the tests with:
 
+<<<<<<< HEAD
     $ bundle exec rake test
+=======
+    $ bundle exec ruby test.rb
+>>>>>>> 59ae1f9... Initial commit
