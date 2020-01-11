@@ -5,20 +5,19 @@ A HTTP server application that contains two endpoints, one providing a form and 
 ## Technical Overview
 
 - HTTP server built using the `rack` gem.
-- HTML forms built using the `sexy_form` gem.
 - HTTP caching provided by the `rack-cache` gem.
 
 ## Usage
 
-Start the server on [`http://localhost:3000`](http://localhost:3000) with:
+Start the server on [`http://localhost:9393`](http://localhost:9393) with:
 
-    $ bundle exec rackup
+    $ bundle exec shotgun
 
-`GET` the login form with:
+View the login form by browsing to:
 
-    $ curl http://localhost:3000/login
+> http://localhost:9393/login
 
-The form submission will `base64` the form content and send it to `http://localhost:3000/auth` to be processed, resulting in a `200 OK` or `401 Unauthorized`. Check the server logs for more verbose information.
+The form submission will `base64` the form content and send it to `http://localhost:9393/auth` to be processed, resulting in a `200 OK` or `401 Unauthorized`. Check the server logs for more verbose information.
 
 To test the auth processing, use the following login details to sucessfully login:
 
