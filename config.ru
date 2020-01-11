@@ -14,7 +14,16 @@ app = Rack::Builder.new do
   end
 
   map '/auth' do
-    handler = proc { |env| [200, {}, [body('TODO')]] }
+    handler = proc do |env|
+      req = Rack::Request.new(env)
+      username = req.params['username']
+      password = req.params['password']
+
+      authorised = auth(username, password)
+      status, html = authorised ? [200, 'Authorized'] : [401, 'Unauthorized']
+
+      [status, {}, [body(html)]]
+    end
     run handler
   end
 end
