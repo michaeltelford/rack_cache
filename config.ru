@@ -4,12 +4,13 @@ require_relative 'helpers'
 
 app = Rack::Builder.new do
   use Rack::Cache,
-    metastore:   'file:/var/cache/rack/meta',
-    entitystore: 'file:/var/cache/rack/body',
+    metastore:   'file:./cache/meta',
+    entitystore: 'file:./cache/body',
     verbose:     true
 
   map '/login' do
-    handler = proc { |env| [200, {}, [body(login_form)]] }
+    headers = { 'Cache-Control' => 'max-age=10' }
+    handler = proc { |env| [200, headers, [body(login_form)]] }
     run handler
   end
 
