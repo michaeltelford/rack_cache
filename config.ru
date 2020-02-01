@@ -1,5 +1,6 @@
 require 'rack'
 require 'rack/cache'
+require 'base64'
 require_relative 'helpers'
 
 app = Rack::Builder.new do
@@ -10,7 +11,9 @@ app = Rack::Builder.new do
 
   map '/login' do
     headers = { 'Cache-Control' => 'max-age=10' }
-    handler = proc { |env| [200, headers, [body(login_form)]] }
+    handler = proc { |env| [200, headers, [
+      html(login_form, javascript: encode_password)
+    ]]}
     run handler
   end
 
@@ -21,9 +24,9 @@ app = Rack::Builder.new do
       password = req.params['password']
 
       authorised = auth(username, password)
-      status, html = authorised ? [200, 'Authorized'] : [401, 'Unauthorized']
+      status, body = authorised ? [200, 'Authorized'] : [401, 'Unauthorized']
 
-      [status, {}, [body(html)]]
+      [status, {}, [html(body)]]
     end
     run handler
   end

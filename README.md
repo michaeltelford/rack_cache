@@ -28,7 +28,3 @@ To test the auth processing, use the following login details to sucessfully logi
 Anything else will result in a failed login attempt.
 
 Check the server logs for more verbose information about the API and cache handling.
-
-## TODO
-
-- `base64` encode/decode the form data.

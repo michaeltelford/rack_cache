@@ -1,9 +1,15 @@
 
-def body(html)
+def html(body, javascript: nil)
   <<~HTML
   <html>
-    <head></head>
-    <body>#{html}</body>
+    <head>
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+      <meta content="utf-8" http-equiv="encoding">
+      #{"<script>#{javascript}</script>" if javascript}
+    </head>
+    <body>
+    #{body}
+    </body>
   </html>
   HTML
 end
@@ -11,7 +17,7 @@ end
 def login_form
   <<~HTML
   <br />
-  <form method="post" action="/auth">
+  <form method="post" action="/auth" onsubmit="encodePassword();">
     <div>
       <label for="username">Username</label>
       <br />
@@ -30,8 +36,22 @@ def login_form
   HTML
 end
 
+def encode_password
+  <<~JS
+  function encodePassword() {
+    const password_el = document.getElementById('password');
+    const password = password_el.value;
+    const passwordBase64 = btoa(password);
+    password_el.value = passwordBase64;
+  }
+  JS
+end
+
 def auth(username, password)
   return false unless username && password
 
-  (username.downcase == 'admin') && (password == 'Admin101')
+  decoded_password = Base64.decode64(password)
+  puts "login: #{username}:#{decoded_password}"
+
+  (username == 'admin') && (decoded_password == 'Admin101')
 end
